@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: fitness-retreat-spain
+    env: node
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: CONTACT_EMAIL
+        value: nataliiafitt@gmail.com
