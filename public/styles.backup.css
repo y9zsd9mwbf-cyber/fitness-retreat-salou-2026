@@ -122,7 +122,7 @@ main { padding-top: 100px; }
 }
 
 .hero-copy {
-  max-width: 600px;
+  max-width: 540px;
   padding-left: 1.5rem;
 }
 .eyebrow {
@@ -181,8 +181,6 @@ main { padding-top: 100px; }
   flex-wrap: wrap;
   gap: 1rem;
   margin: 2rem 0;
-  align-items: center;
-  justify-content: flex-start;
 }
 .hero-actions .cta {
   animation: pulseBtn 9s ease-in-out infinite;
@@ -193,7 +191,6 @@ main { padding-top: 100px; }
   justify-content: center;
   padding: 1rem 1.9rem;
   border-radius: 999px;
-  white-space: nowrap;
   border: none;
   color: #fff;
   font-weight: 700;

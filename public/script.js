@@ -79,29 +79,30 @@ async function handleContactForm() {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     msg.textContent = '';
-    const data = Object.fromEntries(new FormData(form).entries());
-    data.emailTo = EMAIL_TO;
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-      const result = await response.json();
-      if (response.ok && result.ok) {
-        msg.style.color = '#2e6c4f';
-        msg.textContent = 'Спасибо за вашу заявку! В течение 24–48 часов я лично свяжусь с вами и расскажу о дальнейших шагах бронирования.';
-        showToast('Заявка принята. Я скоро напишу вам в Instagram или WhatsApp.');
-        form.reset();
-      } else {
-        msg.style.color = '#b23a23';
-        msg.textContent = result.error || 'Ошибка при отправке. Попробуйте позже.';
-      }
-    } catch (error) {
-      msg.style.color = '#b23a23';
-      msg.textContent = 'Ошибка соединения. Попробуйте позже.';
-      console.error(error);
-    }
+
+const data = Object.fromEntries(new FormData(form).entries());
+
+const text = encodeURIComponent(
+`Здравствуйте, Наталия!
+
+Хочу забронировать место на фитнес-ретрит в Салоу.
+
+Имя: ${data.name || ''}
+Телефон: ${data.phone || ''}
+Email: ${data.email || ''}
+Instagram: ${data.instagram || ''}
+Страна: ${data.country || ''}
+
+О себе:
+${data.message || ''}
+
+Я ознакомилась с договором и условиями участия.`
+);
+const whatsappUrl = `whatsapp://send?phone=4915129614047&text=${text}`;
+msg.style.color = '#2e6c4f';
+msg.textContent = 'Открываю WhatsApp...';
+
+window.open(whatsappUrl, '_blank');
   });
 }
 
