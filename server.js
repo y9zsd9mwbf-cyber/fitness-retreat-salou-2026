@@ -50,7 +50,7 @@ app.get('/documents/common/:filename', (req, res) => {
   }
 
   return res.sendFile(path.join(__dirname, 'public', 'documents', 'common', req.params.filename));
-
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
