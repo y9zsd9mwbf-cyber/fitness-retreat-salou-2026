@@ -30,6 +30,27 @@ try {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+const allowedPortalCodes = ['a7K9mP2x'];
+
+app.get('/portal.html', (req, res) => {
+  const code = req.query.code;
+
+  if (!allowedPortalCodes.includes(code)) {
+    return res.sendFile(path.join(__dirname, 'public', 'portal-locked.html'));
+  }
+
+  return res.sendFile(path.join(__dirname, 'public', 'portal.html'));
+});
+
+app.get('/documents/common/:filename', (req, res) => {
+  const code = req.query.code;
+
+  if (!allowedPortalCodes.includes(code)) {
+    return res.status(403).send('Доступ запрещён');
+  }
+
+  return res.sendFile(path.join(__dirname, 'public', 'documents', 'common', req.params.filename));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
